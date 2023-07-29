@@ -49,6 +49,6 @@ public class AuthController {
         user.setPassword(passwordEncoder.encode(userForm.getPassword()));
         userService.save(user);
 
-        return "redirect:/enter";
+        return "redirect:/login";
     }
 }
