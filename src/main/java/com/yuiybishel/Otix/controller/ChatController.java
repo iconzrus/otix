@@ -3,6 +3,7 @@ package com.yuiybishel.Otix.controller;
 import com.yuiybishel.Otix.model.Message;
 import com.yuiybishel.Otix.model.User;
 import com.yuiybishel.Otix.repository.MessageRepository;
+import com.yuiybishel.Otix.repository.UserRepository;
 import com.yuiybishel.Otix.service.ChatGPTService;
 import com.yuiybishel.Otix.service.ChatService;
 import org.json.JSONObject;
@@ -26,7 +27,6 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @PostMapping("/message")
     public ResponseEntity<Message> sendMessage(@RequestBody Message message) {
         // Отправляем сообщение в ChatGPT и получаем ответ
         String response = chatGPTService.getChatGPTResponse(message.getText());
@@ -45,6 +45,18 @@ public class ChatController {
 
         // Возвращаем ответ в виде сообщения
         return ResponseEntity.ok(responseMessage);
+    }
+
+    @GetMapping("/messages")
+    public ResponseEntity<List<Message>> getMessages(Principal principal) {
+        // Загружаем пользователя из базы данных
+        User user = UserRepository.findByUsername(principal.getName());
+
+        // Получаем все сообщения этого пользователя
+        List<Message> messages = MessageRepository.findByUser(user);
+
+        // Возвращаем сообщения
+        return ResponseEntity.ok(messages);
     }
     @PostMapping("/role")
     public ResponseEntity<Message> setRole(@RequestBody Message message) {
