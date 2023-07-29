@@ -39,18 +39,4 @@ public class AuthController {
         // Возвращаем созданного пользователя
         return ResponseEntity.ok(user);
     }
-
-    @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody UserForm userForm) {
-        // Загружаем пользователя из базы данных
-        User user = userRepository.findByUsername(userForm.getUsername());
-
-        // Проверяем, что пароль пользователя совпадает с введенным паролем
-        if (!passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {
-            throw new BadCredentialsException("Invalid username or password");
-        }
-
-        // Возвращаем аутентифицированного пользователя
-        return ResponseEntity.ok(user);
-    }
 }
