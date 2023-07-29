@@ -48,8 +48,6 @@ public class ChatController {
     }
     @PostMapping("/role")
     public ResponseEntity<Message> setRole(@RequestBody Message message) {
-        // Устанавливаем роль пользователя
-        message.setRole(message.getText());
 
         // Сохраняем сообщение с новой ролью в базе данных
         chatService.saveMessage(message);
