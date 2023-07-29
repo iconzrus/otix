@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Chat Page</title>
+</head>
+<body>
+<h1>Chat Room</h1>
+
+<div th:each="message : ${messages}">
+    <p><strong th:text="${message.user.username}"></strong>: <span th:text="${message.text}"></span></p>
+</div>
+
+<form th:object="${messageForm}" method="post">
+    <input type="text" th:field="*{text}" placeholder="Enter message">
+    <input type="submit" value="Send">
+</form>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.0/sockjs.min.js" integrity="sha512-lyIq9fRcCeSCXhp41XC/250UBmypAH08rihzqtl/KG1/WGx1O20e/IP1/y0Nc4bjn/7rbMUszGg2yQHJD6WKIg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhBppHAdwIapvTH/pVQ4FPZ2TcuVHqFqxm97u6T8ZL5vkdohva1C9694d54537VQ==" crossorigin="anonymous"></script>
+<script src="/templates/chat.js"></script>
+</body>
+</html>
+
