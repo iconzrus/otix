@@ -1,14 +1,12 @@
 package com.yuiybishel.Otix.model;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import org.springframework.data.annotation.Id;
 
 import java.util.Objects;
 
 @Entity
+@Table(name = "`user_account`")
 public class User {
 
     @EmbeddedId

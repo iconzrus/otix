@@ -2,13 +2,14 @@ package com.yuiybishel.Otix.service;
 
 import com.yuiybishel.Otix.model.User;
 import com.yuiybishel.Otix.repository.UserRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-
+@Lazy
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
