@@ -32,6 +32,10 @@ public class Message {
         this.user = user;
     }
 
+    public void setUser(String name) {
+        this.user.setUsername(name);
+    }
+
     public String getText() {
         return text;
     }
