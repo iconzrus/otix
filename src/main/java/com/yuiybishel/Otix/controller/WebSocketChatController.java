@@ -19,11 +19,7 @@ public class WebSocketChatController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
-    public Message sendMessage(@Payload Message chatMessage) {
-        return chatMessage;
-    }
+
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")

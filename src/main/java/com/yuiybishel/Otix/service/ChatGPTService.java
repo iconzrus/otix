@@ -1,11 +1,14 @@
 package com.yuiybishel.Otix.service;
 
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 import java.util.Map;
 
+
+@Service
 public class ChatGPTService {
 
     private RestTemplate restTemplate;
