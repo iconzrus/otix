@@ -21,11 +21,4 @@ public class WebSocketChatController {
 
 
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
-    public Message addUser(@Payload Message chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getUser().getUsername());
-        return chatMessage;
-    }
 }
