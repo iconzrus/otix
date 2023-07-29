@@ -43,7 +43,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<User> login(@RequestBody UserForm userForm) {
         // Загружаем пользователя из базы данных
-        User user = UserRepository.findByUsername(userForm.getUsername());
+        User user = userRepository.findByUsername(userForm.getUsername());
 
         // Проверяем, что пароль пользователя совпадает с введенным паролем
         if (!passwordEncoder.matches(userForm.getPassword(), user.getPassword())) {

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<h1>Chat</h1>
+<div id="messageList"></div>
+<form id="messageForm">
+  <input type="text" id="messageText">
+  <input type="submit" value="Send">
+</form>
+
+<script>
+        $(document).ready(function() {
+            // Загружаем историю сообщений
+            $.get("/chat/messages", function(data) {
+                data.forEach(function(message) {
+                    $("#messageList").append("<p>" + message.user + ": " + message.text + "</p>");
+                });
+            });
+
+            // Отправляем новое сообщение при отправке формы
+            $("#messageForm").submit(function(e) {
+                e.preventDefault();
+                var messageText = $("#messageText").val();
+                $.post("/chat/message", { text: messageText }, function(data) {
+                    $("#messageList").append("<p>You: " + messageText + "</p>");
+                    $("#messageList").append("<p>ChatGPT: " + data.text + "</p>");
+                    $("#messageText").val("");
+                });
+            });
+        });
+    </script>
+</body>
+</html>

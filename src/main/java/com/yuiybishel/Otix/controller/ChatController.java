@@ -27,6 +27,13 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MessageRepository messageRepository;
+
+    @PostMapping("/message")
     public ResponseEntity<Message> sendMessage(@RequestBody Message message) {
         // Отправляем сообщение в ChatGPT и получаем ответ
         String response = chatGPTService.getChatGPTResponse(message.getText());
@@ -50,42 +57,12 @@ public class ChatController {
     @GetMapping("/messages")
     public ResponseEntity<List<Message>> getMessages(Principal principal) {
         // Загружаем пользователя из базы данных
-        User user = UserRepository.findByUsername(principal.getName());
+        User user = userRepository.findByUsername(principal.getName());
 
         // Получаем все сообщения этого пользователя
-        List<Message> messages = MessageRepository.findByUser(user);
+        List<Message> messages = messageRepository.findByUser(user);
 
         // Возвращаем сообщения
         return ResponseEntity.ok(messages);
-    }
-    @PostMapping("/role")
-    public ResponseEntity<Message> setRole(@RequestBody Message message) {
-
-        // Сохраняем сообщение с новой ролью в базе данных
-        chatService.saveMessage(message);
-
-        // Возвращаем сообщение с новой ролью
-        return ResponseEntity.ok(message);
-    }
-
-    @PostMapping("/choice")
-    public ResponseEntity<Message> makeChoice(@RequestBody Message message) {
-        // Отправляем выбор пользователя в ChatGPT и получаем ответ
-        String response = chatGPTService.getChatGPTResponse(message.getText());
-
-        // Разбираем ответ от ChatGPT
-        JSONObject jsonResponse = new JSONObject(response);
-        String chatGPTResponse = jsonResponse.getJSONObject("choices").getJSONArray("text").getString(0);
-
-        // Создаем новое сообщение с ответом от ChatGPT
-        Message responseMessage = new Message();
-        responseMessage.setText(chatGPTResponse);
-        responseMessage.setUser("ChatGPT");
-
-        // Сохраняем сообщение в базе данных
-        chatService.saveMessage(responseMessage);
-
-        // Возвращаем ответ в виде сообщения
-        return ResponseEntity.ok(responseMessage);
     }
 }
