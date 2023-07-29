@@ -37,7 +37,7 @@ public class SecurityConfig {
                 )
                 .formLogin(formLogin -> formLogin
                         .loginPage("/login")
-                        .defaultSuccessUrl("/hello", true)
+                        .defaultSuccessUrl("http://localhost:8080/hello", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
